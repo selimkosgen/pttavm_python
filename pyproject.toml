@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "requests", "xmltodict", "python-dateutil"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pttavm"
+version = "0.1.0"
+requires-python = ">=3.7"
+dependencies = [
+    "requests",
+    "xmltodict",
+    "python-dateutil",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["pttavm"]
