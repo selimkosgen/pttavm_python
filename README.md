@@ -24,7 +24,7 @@ pip install pttavm
 1. **Repoyu Klonlayın:**
 
    ```bash
-   git clone 
+   git clone https://github.com/selimkosgen/pttavm_python.git
    cd pttavm
    ```
 
