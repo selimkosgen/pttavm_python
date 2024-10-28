@@ -19,12 +19,6 @@ Bu proje, PTT AVM SOAP API'nin site docs ile verilen ultra yetersiz dokümantasy
 pip install pttavm-python
 ```
 
-### PyPI üzerinden kurulum
-
-```bash
-pip install pttavm
-```
-
 ### Geliştirici Kurulumu
 
 1. **Repoyu Klonlayın:**
