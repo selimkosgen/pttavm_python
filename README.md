@@ -62,6 +62,21 @@ pip install pttavm-python
 
 2. **Örnek Kullanım:**
 
+```python
+from pttavm.client import PTTAVMClient
+
+client = PTTAVMClient(
+    username="API_USERNAME",
+    password="API_PASSWORD"
+)
+
+category_service = client.get_category_service()
+
+categories = category_service.get_categories()
+
+print(categories)
+```
+
 Örnek kullanımlar için `examples/` klasörüne göz atabilirsiniz:
 
 - `examples/version_example.py`: API versiyon bilgisi alma örneği

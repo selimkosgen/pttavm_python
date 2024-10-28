@@ -1,20 +1,23 @@
-   [build-system]
-   requires = ["setuptools>=42", "wheel"]
-   build-backend = "setuptools.build_meta"
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
 
-   [project]
-   name = "pttavm_python"
-   version = "0.1.1"
-   description = "A client for interacting with PTT AVM API"
-   readme = "README.md"
-   authors = [{name = "Selim Kosgen", email = "selimkosgen1999@gmail.com"}]
-   classifiers = [
-       "Programming Language :: Python :: 3",
-       "License :: OSI Approved :: MIT License",
-       "Operating System :: OS Independent",
-   ]
-   dependencies = [
-       "requests",
-       "xmltodict",
-       "python-dateutil",
-   ]
+[project]
+name = "pttavm_python"
+version = "0.1.2"  # Increment the version number
+description = "A client for interacting with PTT AVM API"
+readme = "README.md"
+authors = [{name = "Selim Kosgen", email = "selimkosgen1999@gmail.com"}]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "requests",
+    "xmltodict",
+    "python-dateutil",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
