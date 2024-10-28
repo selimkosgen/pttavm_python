@@ -13,6 +13,12 @@ Bu proje, PTT AVM SOAP API'nin site docs ile verilen ultra yetersiz dokümantasy
 - Python 3.7 veya üstü
 - pip (Python paket yöneticisi)
 
+### Pip ile kurulum
+
+```bash
+pip install pttavm-python
+```
+
 ### PyPI üzerinden kurulum
 
 ```bash

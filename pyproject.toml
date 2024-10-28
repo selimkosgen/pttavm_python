@@ -1,17 +1,20 @@
-[build-system]
-requires = ["setuptools>=45", "wheel", "requests", "xmltodict", "python-dateutil"]
-build-backend = "setuptools.build_meta"
+   [build-system]
+   requires = ["setuptools>=42", "wheel"]
+   build-backend = "setuptools.build_meta"
 
-[project]
-name = "pttavm"
-version = "0.1.0"
-requires-python = ">=3.7"
-dependencies = [
-    "requests",
-    "xmltodict",
-    "python-dateutil",
-]
-
-[tool.setuptools]
-package-dir = {"" = "src"}
-packages = ["pttavm"]
+   [project]
+   name = "pttavm_python"
+   version = "0.1.1"
+   description = "A client for interacting with PTT AVM API"
+   readme = "README.md"
+   authors = [{name = "Selim Kosgen", email = "selimkosgen1999@gmail.com"}]
+   classifiers = [
+       "Programming Language :: Python :: 3",
+       "License :: OSI Approved :: MIT License",
+       "Operating System :: OS Independent",
+   ]
+   dependencies = [
+       "requests",
+       "xmltodict",
+       "python-dateutil",
+   ]
