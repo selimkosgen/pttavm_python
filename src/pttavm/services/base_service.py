@@ -1,6 +1,6 @@
 import requests
-from typing import Optional, Dict, Any
 import xmltodict
+from typing import Dict, Any, Optional
 
 class BaseService:
     """Base service for SOAP API calls"""
@@ -12,6 +12,7 @@ class BaseService:
         self.api_key = api_key
         self.username = username
         self.password = password
+        self.base_url = "https://ws.pttavm.com:93"
 
     def _create_soap_envelope(self, operation: str, params: Dict = None) -> str:
         """
@@ -91,3 +92,34 @@ class BaseService:
             
         except Exception as e:
             raise Exception(f"API call failed: {str(e)}")
+
+    def _make_request(
+        self, 
+        method: str, 
+        url: str, 
+        headers: Optional[Dict[str, str]] = None,
+        data: Optional[str] = None,
+        params: Optional[Dict[str, Any]] = None
+    ) -> requests.Response:
+        """
+        HTTP isteği yapmak için kullanılan yardımcı metod.
+
+        Args:
+            method (str): HTTP metodu (GET, POST, etc.)
+            url (str): İstek yapılacak URL
+            headers (Dict[str, str], optional): HTTP başlıkları
+            data (str, optional): İstek gövdesi
+            params (Dict[str, Any], optional): URL parametreleri
+
+        Returns:
+            requests.Response: HTTP yanıtı
+        """
+        response = requests.request(
+            method=method,
+            url=url,
+            headers=headers,
+            data=data,
+            params=params
+        )
+        response.raise_for_status()
+        return response

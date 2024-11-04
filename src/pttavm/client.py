@@ -1,68 +1,84 @@
-from typing import Optional
-from .services.version_service import VersionService
+from typing import List, Optional, Dict
 from .services.category_service import CategoryService
+from .services.stock_service import StockService
 from .services.product_service import ProductService
+from .services.version_service import VersionService
+from .models.category import Category
+from .models.stock import Stock
+from .models.product import Product
 
-class PTTAVMClient:
-    """Client for interacting with PTT AVM API"""
+class PTTClient:
+    """
+    PTT AVM API'si için ana istemci sınıfı.
+    Tüm servisleri tek bir noktadan yönetir.
+    """
     
-    def __init__(self, api_key: Optional[str] = None, username: Optional[str] = None, password: Optional[str] = None):
+    def __init__(self, username: str, password: str):
         """
-        Initialize PTT AVM client
-        
         Args:
-            api_key: API key for authentication
-            username: Username for authentication
-            password: Password for authentication
+            username: PTT AVM kullanıcı adı
+            password: PTT AVM şifresi
         """
-        self.api_key = api_key
         self.username = username
         self.password = password
-        self._version_service = None
-        self._category_service = None
-        self._product_service = None
-
-    def get_version_service(self) -> VersionService:
-        """
-        Get the version service instance
         
-        Returns:
-            VersionService instance
-        """
-        if not self._version_service:
-            self._version_service = VersionService(
-                api_key=self.api_key,
-                username=self.username,
-                password=self.password
-            )
-        return self._version_service
+        # Initialize services
+        self._category_service = CategoryService(username, password)
+        self._stock_service = StockService(username, password)
+        self._product_service = ProductService(username, password)
+        self._version_service = VersionService(username, password)
 
-    def get_category_service(self) -> CategoryService:
-        """
-        Get the category service instance
-        
-        Returns:
-            CategoryService instance
-        """
-        if not self._category_service:
-            self._category_service = CategoryService(
-                api_key=self.api_key,
-                username=self.username,
-                password=self.password
-            )
-        return self._category_service
+    # Category Operations
+    def get_category(self, category_id: int) -> Optional[Category]:
+        """Kategori bilgilerini getirir."""
+        return self._category_service.get_categories(category_id)
 
-    def get_product_service(self) -> ProductService:
+    # Stock Operations
+    def get_stock(self, barcode: str) -> Optional[Stock]:
+        """Tek bir ürünün stok bilgisini getirir."""
+        return self._stock_service.get_single_stock(barcode)
+    
+    def get_stocks(self, page: int = 0) -> List[Stock]:
+        """Stok listesini sayfa sayfa getirir."""
+        return self._stock_service.get_stock_list(page)
+    
+    def get_all_stocks(self, progress_callback=None) -> List[Stock]:
+        """Tüm stok listesini getirir."""
+        return self._stock_service.get_all_stocks(batch_callback=progress_callback)
+    
+    def get_stock_count(self) -> int:
+        """Toplam stok sayısını getirir."""
+        return self._stock_service.get_total_stock_count()
+
+    # Product Operations
+    def check_barcode(self, barcode: str) -> Dict:
+        """Barkod kontrolü yapar."""
+        return self._product_service.check_barcode(barcode)
+    
+    def get_product_stock(self) -> Dict:
+        """Ürün stok listesini getirir."""
+        return self._product_service.get_stock_list()
+
+    # Version Operations
+    def get_version(self) -> Dict[str, str]:
+        """API versiyonunu getirir."""
+        return self._version_service.get_version()
+
+    # Utility Methods
+    def get_service(self, service_type: str):
         """
-        Get the product service instance
+        İstenilen servisi döndürür.
         
+        Args:
+            service_type: Servis tipi ('category', 'stock', 'product', 'version')
+            
         Returns:
-            ProductService instance
+            İlgili servis sınıfının instance'ı
         """
-        if not self._product_service:
-            self._product_service = ProductService(
-                api_key=self.api_key,
-                username=self.username,
-                password=self.password
-            )
-        return self._product_service
+        services = {
+            'category': self._category_service,
+            'stock': self._stock_service,
+            'product': self._product_service,
+            'version': self._version_service
+        }
+        return services.get(service_type.lower())
