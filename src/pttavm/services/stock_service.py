@@ -1,9 +1,10 @@
-from typing import List, Tuple, Optional
+from typing import List, Tuple, Optional, Union
 import math
 from ..models.stock import (
     Stock, StockWarranty, StockDimensions, 
     StockPrice, StockProduct
 )
+from ..models.variant import StockPriceUpdate, Variant, VariantAttribute
 from .base_service import BaseService
 
 class StockService(BaseService):
@@ -197,3 +198,59 @@ class StockService(BaseService):
         except (ValueError, TypeError) as e:
             print(f"Error parsing stock data: {e}")
             return None
+
+    def update_stock_price(self, update_data: StockPriceUpdate) -> bool:
+        """
+        Stok ve fiyat bilgilerini günceller.
+        
+        Args:
+            update_data: Güncellenecek stok ve fiyat bilgileri
+            
+        Returns:
+            bool: Güncelleme başarılı ise True
+        """
+        try:
+            # Varyant listesini hazırla
+            variants_xml = ""
+            if update_data.variants:
+                for variant in update_data.variants:
+                    attrs_xml = ""
+                    for attr in variant.attributes:
+                        attrs_xml += f"""
+                        <ept:VariantAttr>
+                            <ept:Deger>{attr.value}</ept:Deger>
+                            <ept:Fiyat>{attr.price}</ept:Fiyat>
+                            <ept:FiyatFarkiMi>{str(attr.is_price_difference).lower()}</ept:FiyatFarkiMi>
+                            <ept:Tanim>{attr.name}</ept:Tanim>
+                        </ept:VariantAttr>"""
+
+                    variants_xml += f"""
+                    <ept:Variant>
+                        <ept:AnaUrunKodu>{variant.main_barcode}</ept:AnaUrunKodu>
+                        <ept:Attributes>{attrs_xml}</ept:Attributes>
+                        <ept:Miktar>{variant.quantity}</ept:Miktar>
+                        <ept:VariantBarkod>{variant.variant_barcode}</ept:VariantBarkod>
+                    </ept:Variant>"""
+
+            # İstek gövdesini oluştur
+            response = self.call_service(
+                operation="StokFiyatGuncelle3",
+                params={
+                    "item": {
+                        "Aktif": str(update_data.is_active).lower(),
+                        "Barkod": update_data.barcode,
+                        "Iskonto": update_data.discount,
+                        "KDVOran": update_data.vat_rate,
+                        "KDVli": update_data.price_with_vat,
+                        "KDVsiz": update_data.price_without_vat,
+                        "Miktar": update_data.quantity,
+                        "YeniKategoriId": update_data.category_id,
+                        "VariantListesi": variants_xml if update_data.variants else None
+                    }
+                }
+            )
+            
+            return True if response else False
+            
+        except Exception as e:
+            raise Exception(f"Failed to update stock price: {str(e)}")

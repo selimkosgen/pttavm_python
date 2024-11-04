@@ -93,3 +93,27 @@ class Product:
             )
         except Exception as e:
             raise Exception(f"Error parsing product data: {str(e)}")
+
+class ProductUpdateError(Exception):
+    """Ürün güncelleme hatası"""
+    pass
+
+class RequiredFieldError(ProductUpdateError):
+    """Zorunlu alan eksik hatası"""
+    pass
+
+class ValidationError(ProductUpdateError):
+    """Veri doğrulama hatası"""
+    pass
+
+@dataclass
+class ProductActivation:
+    """Ürün aktivasyon modeli"""
+    product_id: int  # UrunId (Required)
+    is_active: bool = True  # Aktif (Optional, default: True)
+
+    def __post_init__(self):
+        if not isinstance(self.product_id, int):
+            raise ValidationError("Product ID must be an integer")
+        if self.product_id <= 0:
+            raise RequiredFieldError("Valid product ID is required")

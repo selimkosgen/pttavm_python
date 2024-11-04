@@ -2,24 +2,28 @@
 
 PTT AVM API entegrasyonu için Python istemci kütüphanesi. 
 
-## Son Sürüm: v0.1.3
+## Son Sürüm: v0.1.4
 
 ### Yeni Eklenenler
-- ✨ Stok servisleri eklendi
-  - Toplu stok listeleme
-  - Tek ürün stok kontrolü
-  - Sayfalı listeleme desteği
-  - Toplam stok sayısı hesaplama
-- 📊 İlerleme takibi için callback sistemi
-- 🔄 Sayfalama desteği (1000 ürün/sayfa)
+- ✨ Ürün güncelleme servisleri (V2)
+  - Tekli ve toplu güncelleme
+  - Varyant yönetimi
+  - Parça ve resim yönetimi
+- 🔒 Kapsamlı validasyon sistemi
+  - KDV oranı kontrolü
+  - Fiyat validasyonları
+  - Stok limitleri
+  - Varyant tutarlılığı
+- 🧮 Otomatik hesaplamalar
+  - KDV ve indirim
+  - Desi hesaplama
+- 📝 Gelişmiş hata yönetimi
 
 ### Değişenler
-- 🔨 Import yapısı basitleştirildi
-  - Eski: `from pttavm.client import PTTAVMClient`
-  - Yeni: `from pttavm import PTTClient`
-- 📝 Daha temiz ve anlaşılır API
-- ⚡️ Daha verimli hata yönetimi
-- 🎯 Son kullanıcı odaklı geliştirmeler
+- 🏗️ Servis yapısı iyileştirildi
+- 📊 Validasyon kuralları merkezi hale getirildi
+- 🎯 Örnek kodlar geliştirildi
+- 📚 Dokümantasyon güncellendi
 
 [Devamı için tıklayın](#değişiklik-geçmişi)
 
@@ -123,48 +127,38 @@ all_stocks = client.get_all_stocks(progress_callback=progress_callback)
 - ✅ Authentication (API Kimlik Doğrulama)
 - ✅ GetVersion (API Versiyon Bilgisi)
 - ✅ Kategori Servisleri
-  - 🟠 AltKategoriListesi (Deprecated)
   - GetCategoryTree
+  - 🟠 AltKategoriListesi (Deprecated)
 - ✅ Stok Servisleri
   - StokKontrolListesi (Sayfalı listeleme)
   - Tek ürün stok kontrolü
   - Toplu stok listeleme
   - Toplam stok sayısı hesaplama
-- ✅ Barkod Kontrol (Ürün Servisleri)
-- 🔴 Ürün Servisleri
-  - AktifYap
-  - BarkodKontrolBulk
-  - GetProductsWithVariants
+- ✅ Ürün Servisleri
+  - ✅ StokGuncelleV2 (Yeni)
+  - ✅ StokGuncelleV2Bulk (Yeni)
+  - ✅ BarkodKontrol
+  - ✅ BarkodKontrolBulk
+  - ✅ AktifYap
   - 🟠 StokFiyatGuncelle (Deprecated)
   - 🟠 StokFiyatGuncelle2 (Deprecated)
-  - StokFiyatGuncelle3
-  - 🟠 StokFiyatGuncelleBulk (Deprecated)
-  - 🟠 StokGuncelle (Deprecated)
-  - 🟠 StokGuncelleBulk (Deprecated)
-  - StokGuncelleV2
-  - StokGuncelleV2Bulk
+  - 🟠 StokFiyatGuncelle3 (Deprecated)
   - 🟠 UpdateProductVariant (Deprecated)
-- 🔴 Kategori Servisleri
-  - GetCategory
-  - GetMainCategories 
-  - 🟠 TedarikciAltKategoriListesi (Deprecated)
 - 🔴 Sipariş Servisleri
   - SaveInvoince
   - SiparisKontrolListesiV2
 - 🔴 Mağaza Servisleri
   - GetCargoProfiles
   - KullaniciTedarikciBilgisiGetir
-- 🔴 Kargo ve Teslimat Servisleri
-  - /v1/get-barcode-tag
 
 ### Hedeflenen Temel Özellikler
 
 - ✅ Kapsamlı dokümantasyon ve örnekler
 - ✅ Kolay kullanımlı Python arayüzü
 - ✅ Hata yönetimi ve doğrulama
-- ✅ Tip güvenliği
-- ✅ Otomatik test desteği
-- ✅ İlerleme takibi (Progress callback)
+- ✅ Validasyon kuralları
+- ✅ Otomatik hesaplamalar
+- ✅ İlerleme takibi
 - ✅ Sayfalı listeleme desteği
 
 ## Eklenmesi Planlanan Özellikler
@@ -181,6 +175,12 @@ Henüz eklenmemiş olan ve gelecekteki güncellemelerde yer alması planlanan ö
   - /v1/barcode-status, /v1/create-barcode, /v1/get-warehouse vb.
 
 ## Değişiklik Geçmişi
+
+### v0.1.4
+- ✨ Ürün güncelleme servisleri (V2)
+- 🔒 Kapsamlı validasyon sistemi
+- 🧮 Otomatik hesaplamalar
+- 📝 Gelişmiş hata yönetimi
 
 ### v0.1.3
 - ✨ Stok servisleri eklendi

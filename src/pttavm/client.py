@@ -6,6 +6,10 @@ from .services.version_service import VersionService
 from .models.category import Category
 from .models.stock import Stock
 from .models.product import Product
+from .models.variant import StockPriceUpdate
+from .models.product import ProductActivation, ProductUpdateError
+from .models.barcode import BarcodeCheckResult, BulkBarcodeCheck, BarcodeError
+from .models.product_update import ProductUpdateV2
 
 class PTTClient:
     """
@@ -51,13 +55,37 @@ class PTTClient:
         return self._stock_service.get_total_stock_count()
 
     # Product Operations
-    def check_barcode(self, barcode: str) -> Dict:
-        """Barkod kontrolü yapar."""
+    def check_barcode(self, barcode: str) -> BarcodeCheckResult:
+        """Tekil barkod kontrolü yapar."""
         return self._product_service.check_barcode(barcode)
-    
-    def get_product_stock(self) -> Dict:
-        """Ürün stok listesini getirir."""
-        return self._product_service.get_stock_list()
+
+    def check_barcodes_bulk(self, barcodes: List[str]) -> List[BarcodeCheckResult]:
+        """Toplu barkod kontrolü yapar."""
+        return self._product_service.check_barcodes_bulk(barcodes)
+
+    def activate_product(self, product_id: int, is_active: bool = True) -> bool:
+        """Ürünü aktif/pasif yapar."""
+        activation = ProductActivation(
+            product_id=product_id,
+            is_active=is_active
+        )
+        return self._product_service.activate_product(activation)
+
+    def update_product_v2(self, product: ProductUpdateV2) -> bool:
+        """Ürün bilgilerini günceller (V2)."""
+        return self._product_service.update_product_v2(product)
+
+    def update_products_v2_bulk(self, products: List[ProductUpdateV2]) -> bool:
+        """Birden fazla ürünü toplu olarak günceller (V2)."""
+        return self._product_service.update_products_v2_bulk(products)
+
+    def update_stock_price(self, update_data: StockPriceUpdate) -> bool:
+        """Stok ve fiyat bilgilerini günceller."""
+        return self._stock_service.update_stock_price(update_data)
+
+    def update_stock_price_bulk(self, update_data_list: List[StockPriceUpdate]) -> bool:
+        """Stok ve fiyat bilgilerini toplu olarak günceller."""
+        return self._stock_service.update_stock_price_bulk(update_data_list)
 
     # Version Operations
     def get_version(self) -> Dict[str, str]:
@@ -66,15 +94,7 @@ class PTTClient:
 
     # Utility Methods
     def get_service(self, service_type: str):
-        """
-        İstenilen servisi döndürür.
-        
-        Args:
-            service_type: Servis tipi ('category', 'stock', 'product', 'version')
-            
-        Returns:
-            İlgili servis sınıfının instance'ı
-        """
+        """İstenilen servisi döndürür."""
         services = {
             'category': self._category_service,
             'stock': self._stock_service,
