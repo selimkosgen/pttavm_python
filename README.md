@@ -137,12 +137,12 @@ all_stocks = client.get_all_stocks(progress_callback=progress_callback)
 - ✅ Ürün Servisleri
   - ✅ StokGuncelleV2 (Yeni)
   - ✅ StokGuncelleV2Bulk (Yeni)
+  - ✅ StokFiyatGuncelle3
   - ✅ BarkodKontrol
   - ✅ BarkodKontrolBulk
   - ✅ AktifYap
   - 🟠 StokFiyatGuncelle (Deprecated)
   - 🟠 StokFiyatGuncelle2 (Deprecated)
-  - 🟠 StokFiyatGuncelle3 (Deprecated)
   - 🟠 UpdateProductVariant (Deprecated)
 - 🔴 Sipariş Servisleri
   - SaveInvoince
@@ -164,9 +164,6 @@ all_stocks = client.get_all_stocks(progress_callback=progress_callback)
 ## Eklenmesi Planlanan Özellikler
 
 Henüz eklenmemiş olan ve gelecekteki güncellemelerde yer alması planlanan özellikler şunlardır:
-
-- **Stok ve Fiyat Güncelleme Servisleri**
-  - StokFiyatGuncelle, StokFiyatGuncelleBulk, StokGuncelleV2 vb.
 
 - **Sipariş Servisleri**
   - SiparisKontrolListesi, KargoBilgiListesi
