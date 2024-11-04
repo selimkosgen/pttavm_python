@@ -5,7 +5,7 @@ Bu dosya PTT AVM API İstemcisi'nin tüm önemli değişikliklerini belgelemekte
 Format [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) standardını takip etmektedir,
 ve bu proje [Semantic Versioning](https://semver.org/spec/v2.0.0.html) kullanmaktadır.
 
-## [0.1.3] - 2024-03-19
+## [0.1.3] - 2024-11-04
 
 ### Eklenenler
 - ✨ Stok servisleri eklendi
@@ -35,7 +35,7 @@ ve bu proje [Semantic Versioning](https://semver.org/spec/v2.0.0.html) kullanmak
 - 🔧 Veri dönüşüm hataları giderildi
 - ✅ Test coverage artırıldı
 
-## [0.1.2] - 2024-03-15
+## [0.1.2] - 2024-10-30
 
 ### Değişenler
 - `PTTAVMClient` sınıfı `PTTClient` olarak yeniden adlandırıldı
@@ -47,7 +47,7 @@ ve bu proje [Semantic Versioning](https://semver.org/spec/v2.0.0.html) kullanmak
 - Hata yönetimi geliştirildi
 - Dokümantasyon güncellendi
 
-## [0.1.1] - 2024-03-10
+## [0.1.1] - 2024-10-29
 
 ### Eklenenler
 - İlk sürüm
