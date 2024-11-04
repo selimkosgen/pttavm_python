@@ -123,8 +123,7 @@ all_stocks = client.get_all_stocks(progress_callback=progress_callback)
 - ✅ Authentication (API Kimlik Doğrulama)
 - ✅ GetVersion (API Versiyon Bilgisi)
 - ✅ Kategori Servisleri
-  - AltKategoriListesi
-  - KategoriListesi 
+  - 🟠 AltKategoriListesi (Deprecated)
   - GetCategoryTree
 - ✅ Stok Servisleri
   - StokKontrolListesi (Sayfalı listeleme)
@@ -136,19 +135,19 @@ all_stocks = client.get_all_stocks(progress_callback=progress_callback)
   - AktifYap
   - BarkodKontrolBulk
   - GetProductsWithVariants
-  - StokFiyatGuncelle
-  - StokFiyatGuncelle2 
+  - 🟠 StokFiyatGuncelle (Deprecated)
+  - 🟠 StokFiyatGuncelle2 (Deprecated)
   - StokFiyatGuncelle3
-  - StokFiyatGuncelleBulk
-  - StokGuncelle
-  - StokGuncelleBulk
+  - 🟠 StokFiyatGuncelleBulk (Deprecated)
+  - 🟠 StokGuncelle (Deprecated)
+  - 🟠 StokGuncelleBulk (Deprecated)
   - StokGuncelleV2
   - StokGuncelleV2Bulk
-  - UpdateProductVariant
+  - 🟠 UpdateProductVariant (Deprecated)
 - 🔴 Kategori Servisleri
   - GetCategory
-  - GetMainCategories
-  - TedarikciAltKategoriListesi
+  - GetMainCategories 
+  - 🟠 TedarikciAltKategoriListesi (Deprecated)
 - 🔴 Sipariş Servisleri
   - SaveInvoince
   - SiparisKontrolListesiV2
