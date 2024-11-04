@@ -14,6 +14,10 @@ ve bu proje [Semantic Versioning](https://semver.org/spec/v2.0.0.html) kullanmak
   - Varyant desteği
   - Parça yönetimi
   - Resim yönetimi
+- ✨ Stok fiyat güncelleme servisi eklendi
+  - `StokFiyatGuncelle3` desteği
+  - Varyant fiyat güncellemeleri
+  - Toplu güncelleme desteği
 - 🔒 Kapsamlı validasyon kuralları
   - KDV oranı kontrolü (0, 1, 10, 20)
   - Fiyat validasyonları
