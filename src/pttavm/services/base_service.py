@@ -27,26 +27,30 @@ class BaseService:
             
         param_xml = ""
         for key, value in params.items():
-            param_xml += f"<tem:{key}>{value}</tem:{key}>"
+            if isinstance(value, dict):
+                param_xml += f"<tem:{key}>"
+                for sub_key, sub_value in value.items():
+                    param_xml += f"<{sub_key}>{sub_value}</{sub_key}>"
+                param_xml += f"</tem:{key}>"
+            else:
+                param_xml += f"<tem:{key}>{value}</tem:{key}>"
             
-        return f"""
-        <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" 
-                         xmlns:tem="http://tempuri.org/" 
-                         xmlns:ept="http://schemas.datacontract.org/2004/07/ePttAVMService">
-            <soapenv:Header>
-                <wsse:Security soapenv:mustUnderstand="1" 
-                             xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+        return f"""<?xml version="1.0" encoding="utf-8"?>
+        <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" 
+                      xmlns:tem="http://tempuri.org/" 
+                      xmlns:ept="http://schemas.datacontract.org/2004/07/ePttAVMService">
+            <soap:Header>
+                <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
                     <wsse:UsernameToken>
                         <wsse:Username>{self.username}</wsse:Username>
-                        <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{self.password}</wsse:Password>
+                        <wsse:Password>{self.password}</wsse:Password>
                     </wsse:UsernameToken>
                 </wsse:Security>
-            </soapenv:Header>
-            <soapenv:Body>
+            </soap:Header>
+            <soap:Body>
                 <tem:{operation}>{param_xml}</tem:{operation}>
-            </soapenv:Body>
-        </soapenv:Envelope>
-        """
+            </soap:Body>
+        </soap:Envelope>"""
 
     def call_service(self, operation: str, params: Dict = None) -> Any:
         """
@@ -71,17 +75,18 @@ class BaseService:
                 self.API_URL,
                 data=body.encode('utf-8'),
                 headers=headers,
+                verify=False,  # SSL sertifika doğrulamasını devre dışı bırak
                 timeout=30
             )
             
             if response.status_code != 200:
-                raise Exception(f"API call failed with status code: {response.status_code}")
+                raise Exception(f"API call failed with status code: {response.status_code}, Response: {response.text}")
                 
             # Parse XML response
             response_dict = xmltodict.parse(response.content)
             
             # Extract response from SOAP envelope
-            soap_body = response_dict['s:Envelope']['s:Body']
+            soap_body = response_dict['soap:Envelope']['soap:Body']
             response_key = f'{operation}Response'
             result_key = f'{operation}Result'
             

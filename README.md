@@ -2,7 +2,7 @@
 
 PTT AVM API entegrasyonu için Python istemci kütüphanesi. 
 
-## Son Sürüm: v0.1.4
+## Son Sürüm: v0.1.5
 
 ### Yeni Eklenenler
 - ✨ Ürün güncelleme servisleri (V2)
@@ -24,6 +24,11 @@ PTT AVM API entegrasyonu için Python istemci kütüphanesi.
 - 📊 Validasyon kuralları merkezi hale getirildi
 - 🎯 Örnek kodlar geliştirildi
 - 📚 Dokümantasyon güncellendi
+
+### Düzeltmeler
+- 🐛 SOAP istek yapısı düzeltildi
+- 🔧 SSL sertifika doğrulama hatası giderildi
+- ⚡️ API yanıt işleme geliştirildi
 
 [Devamı için tıklayın](#değişiklik-geçmişi)
 
@@ -172,6 +177,12 @@ Henüz eklenmemiş olan ve gelecekteki güncellemelerde yer alması planlanan ö
   - /v1/barcode-status, /v1/create-barcode, /v1/get-warehouse vb.
 
 ## Değişiklik Geçmişi
+
+### v0.1.5
+- ✨ Ürün güncelleme servisleri (V2)
+- 🔒 Kapsamlı validasyon sistemi
+- 🧮 Otomatik hesaplamalar
+- 📝 Gelişmiş hata yönetimi
 
 ### v0.1.4
 - ✨ Ürün güncelleme servisleri (V2)
