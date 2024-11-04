@@ -5,6 +5,14 @@ Bu dosya PTT AVM API İstemcisi'nin tüm önemli değişikliklerini belgelemekte
 Format [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) standardını takip etmektedir,
 ve bu proje [Semantic Versioning](https://semver.org/spec/v2.0.0.html) kullanmaktadır.
 
+## [0.1.5] - 2024-11-04
+
+### Düzeltmeler
+- 🐛 SOAP istek yapısı düzeltildi
+  - Header yapısı güncellendi
+  - Namespace'ler düzeltildi
+  - XML versiyon bilgisi eklendi
+
 ## [0.1.4] - 2024-11-04
 
 ### Eklenenler
@@ -89,6 +97,7 @@ ve bu proje [Semantic Versioning](https://semver.org/spec/v2.0.0.html) kullanmak
 - Ürün servisleri
 - Versiyon kontrolü
 
+[0.1.5]: https://github.com/selimkosgen/pttavm_python/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/selimkosgen/pttavm_python/compare/v0.1.3...v0.1.4
 [0.1.3]: https://github.com/selimkosgen/pttavm_python/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/selimkosgen/pttavm_python/compare/v0.1.1...v0.1.2

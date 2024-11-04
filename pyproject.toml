@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pttavm-python"
-version = "0.1.4"
+version = "0.1.5"
 description = "A client for interacting with PTT AVM API"
 readme = "README.md"
 authors = [{name = "Selim Kosgen", email = "selimkosgen1999@gmail.com"}]
